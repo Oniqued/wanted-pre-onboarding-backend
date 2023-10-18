@@ -1,11 +1,14 @@
 package com.backend.wantedpreonboardingbackend.employment.domain.employment;
 
+import com.backend.wantedpreonboardingbackend.employment.application.port.in.dto.EmploymentReq;
 import com.backend.wantedpreonboardingbackend.employment.domain.company.Company;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import static com.backend.wantedpreonboardingbackend.employment.application.port.in.dto.EmploymentReq.*;
 
 @Entity
 @Table
@@ -43,5 +46,11 @@ public class Employment {
                 .content(content)
                 .skill(skill)
                 .build();
+    }
+
+    public void updatePost(EmploymentUpdateReq employmentUpdateReq) {
+        this.position = employmentUpdateReq.getPosition();
+        this.content = employmentUpdateReq.getContent();
+        this.skill = employmentUpdateReq.getSkill();
     }
 }

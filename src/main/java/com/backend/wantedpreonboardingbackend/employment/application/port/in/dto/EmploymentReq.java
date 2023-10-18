@@ -20,4 +20,14 @@ public class EmploymentReq {
             return Employment.createPost(company, position, reward, content, skill);
         }
     }
+
+    @Getter
+    @Builder
+    public static class EmploymentUpdateReq {
+        private Long employmentId;
+        private String position;
+        private Integer reward;
+        private String content;
+        private String skill;
+    }
 }

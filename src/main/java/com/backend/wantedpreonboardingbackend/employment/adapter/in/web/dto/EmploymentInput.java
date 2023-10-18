@@ -1,6 +1,5 @@
 package com.backend.wantedpreonboardingbackend.employment.adapter.in.web.dto;
 
-import com.backend.wantedpreonboardingbackend.employment.application.port.in.dto.EmploymentReq;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -27,4 +26,25 @@ public class EmploymentInput {
                     .build();
         }
     }
+
+    @Getter
+    @Builder
+    public static class EmploymentUpdateInput {
+        private String position;
+        private Integer reward;
+        private String content;
+        private String skill;
+
+        public EmploymentUpdateReq toReq(Long employmentId){
+            return EmploymentUpdateReq.builder()
+                    .employmentId(employmentId)
+                    .position(position)
+                    .reward(reward)
+                    .content(content)
+                    .skill(skill)
+                    .build();
+        }
+    }
+
+
 }

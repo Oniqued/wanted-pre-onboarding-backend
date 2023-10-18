@@ -6,4 +6,8 @@ import static com.backend.wantedpreonboardingbackend.employment.application.port
 
 public interface EmploymentUseCase {
     void postEmployment(EmploymentPostReq employmentPostReq);
+
+    void updateEmployment(EmploymentUpdateReq employmentUpdateReq);
+
+    void deleteEmployment(Long employmentId);
 }
