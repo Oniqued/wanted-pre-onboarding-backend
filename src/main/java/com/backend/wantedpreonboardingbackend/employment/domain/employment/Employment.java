@@ -1,6 +1,5 @@
 package com.backend.wantedpreonboardingbackend.employment.domain.employment;
 
-import com.backend.wantedpreonboardingbackend.employment.application.port.in.dto.EmploymentReq;
 import com.backend.wantedpreonboardingbackend.employment.domain.company.Company;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

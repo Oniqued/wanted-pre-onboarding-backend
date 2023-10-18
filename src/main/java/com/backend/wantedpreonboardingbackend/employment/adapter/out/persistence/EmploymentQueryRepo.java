@@ -6,6 +6,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import static com.backend.wantedpreonboardingbackend.employment.domain.employment.QEmployment.employment;
@@ -22,5 +23,26 @@ public class EmploymentQueryRepo implements EmploymentQueryableRepo {
                         .where(employment.id.eq(employmentId))
                         .fetchOne()
         );
+    }
+
+    @Override
+    public List<Employment> findAllEmployments() {
+        return queryFactory.selectFrom(employment)
+                .fetch();
+    }
+
+    @Override
+    public List<Employment> findEmploymentsByKeyword(String keyword) {
+        return queryFactory.selectFrom(employment)
+                .where(employment.companyId.companyName.contains(keyword)
+                        .or(employment.skill.contains(keyword)))
+                .fetch();
+    }
+
+    @Override
+    public List<Long> findEmploymentsWithCompanyId(Long companyId) {
+        return queryFactory.select(employment.id).from(employment)
+                .where(employment.companyId.id.eq(companyId))
+                .fetch();
     }
 }

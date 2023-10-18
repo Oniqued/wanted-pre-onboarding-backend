@@ -47,4 +47,28 @@ public class EmploymentApiController {
         employmentUseCase.deleteEmployment(employmentId);
         return SuccessResponseWithoutResult.toResponseEntity(SuccessCode.DELETE_EMPLOYMENT_POST_SUCCESS);
     }
+
+    @Operation(summary = "채용공고 전체 조회 API", responses = {
+            @ApiResponse(description = "Successful Operation", responseCode = "200", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SuccessResponseWithoutResult.class)))
+    })
+    @GetMapping("/all")
+    public ResponseEntity<SuccessResponse> getAllPosts() {
+        return SuccessResponse.toResponseEntity(SuccessCode.GET_EMPLOYMENT_POST_SUCCESS, employmentUseCase.getEmploymentList());
+    }
+
+    @Operation(summary = "채용공고 조건 검색 API", responses = {
+            @ApiResponse(description = "Successful Operation", responseCode = "200", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SuccessResponseWithoutResult.class)))
+    })
+    @GetMapping
+    public ResponseEntity<SuccessResponse> searchPosts(@RequestParam(name = "search") String keyword) {
+        return SuccessResponse.toResponseEntity(SuccessCode.GET_EMPLOYMENT_POST_SUCCESS, employmentUseCase.getEmploymentSearchResult(keyword));
+    }
+
+    @Operation(summary = "채용공고 상세보기 API", responses = {
+            @ApiResponse(description = "Successful Operation", responseCode = "200", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SuccessResponseWithoutResult.class)))
+    })
+    @GetMapping("/{employmentId}")
+    public ResponseEntity<SuccessResponse> getEmploymentDetail(@PathVariable Long employmentId) {
+        return SuccessResponse.toResponseEntity(SuccessCode.GET_EMPLOYMENT_POST_SUCCESS, employmentUseCase.getEmploymentDetail(employmentId));
+    }
 }
