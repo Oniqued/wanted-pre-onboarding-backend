@@ -40,9 +40,10 @@ public class EmploymentQueryRepo implements EmploymentQueryableRepo {
     }
 
     @Override
-    public List<Long> findEmploymentsWithCompanyId(Long companyId) {
+    public List<Long> findEmploymentsWithCompanyId(Long companyId, Long employmentId) {
         return queryFactory.select(employment.id).from(employment)
-                .where(employment.companyId.id.eq(companyId))
+                .where(employment.companyId.id.eq(companyId).and(employment.id.notIn(employmentId)))
                 .fetch();
     }
+
 }

@@ -1,6 +1,8 @@
 package com.backend.wantedpreonboardingbackend.employment.adapter.in.web;
 
+import com.backend.wantedpreonboardingbackend.employment.adapter.in.web.dto.AttendInput;
 import com.backend.wantedpreonboardingbackend.employment.adapter.in.web.dto.EmploymentInput;
+import com.backend.wantedpreonboardingbackend.employment.application.port.in.AttendUseCase;
 import com.backend.wantedpreonboardingbackend.employment.application.port.in.EmploymentUseCase;
 import com.backend.wantedpreonboardingbackend.global.success.SuccessCode;
 import com.backend.wantedpreonboardingbackend.global.success.SuccessResponse;
@@ -20,6 +22,7 @@ import static com.backend.wantedpreonboardingbackend.employment.adapter.in.web.d
 @RequestMapping("/post")
 public class EmploymentApiController {
     private final EmploymentUseCase employmentUseCase;
+    private final AttendUseCase attendUseCase;
 
     @Operation(summary = "채용공고 등록 API", responses = {
             @ApiResponse(description = "Successful Operation", responseCode = "200", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SuccessResponseWithoutResult.class)))
@@ -70,5 +73,14 @@ public class EmploymentApiController {
     @GetMapping("/{employmentId}")
     public ResponseEntity<SuccessResponse> getEmploymentDetail(@PathVariable Long employmentId) {
         return SuccessResponse.toResponseEntity(SuccessCode.GET_EMPLOYMENT_POST_SUCCESS, employmentUseCase.getEmploymentDetail(employmentId));
+    }
+
+    @Operation(summary = "채용공고 지원 API", responses = {
+            @ApiResponse(description = "Successful Operation", responseCode = "200", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SuccessResponseWithoutResult.class)))
+    })
+    @PostMapping("/{employmentId}/attend")
+    public ResponseEntity<?> attendEmployment(@PathVariable Long employmentId, @RequestParam Long userId) {
+        attendUseCase.attend(AttendInput.toReq(employmentId, userId));
+        return SuccessResponseWithoutResult.toResponseEntity(SuccessCode.ATTEND_SUCCESS);
     }
 }

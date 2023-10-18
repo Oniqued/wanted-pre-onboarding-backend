@@ -69,7 +69,7 @@ public class EmploymentService implements EmploymentUseCase {
     public EmploymentDetailRes getEmploymentDetail(Long employmentId) {
         Employment employment = employmentQueryableRepo.findEmploymentByEmploymentId(employmentId)
                 .orElseThrow(()->new NotFoundException(ErrorCode.NOT_FOUND_EMPLOYMENT_POST));
-        List<Long> anotherEmployment = employmentQueryableRepo.findEmploymentsWithCompanyId(employment.getCompanyId().getId());
+        List<Long> anotherEmployment = employmentQueryableRepo.findEmploymentsWithCompanyId(employment.getCompanyId().getId(), employmentId);
 
         return EmploymentDetailRes.of(employment, anotherEmployment);
     }

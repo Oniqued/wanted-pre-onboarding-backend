@@ -9,5 +9,5 @@ public interface EmploymentQueryableRepo {
     Optional<Employment> findEmploymentByEmploymentId(Long employmentId);
     List<Employment> findAllEmployments();
     List<Employment> findEmploymentsByKeyword(String keyword);
-    List<Long> findEmploymentsWithCompanyId(Long companyId);
+    List<Long> findEmploymentsWithCompanyId(Long companyId, Long employmentId);
 }
