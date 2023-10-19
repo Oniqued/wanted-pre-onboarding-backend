@@ -15,9 +15,9 @@ public class AttendQueryRepo implements AttendQueryableRepo {
 
     @Override
     public boolean isAttendedUser(Long employmentId, Long userId) {
-        return false;
-
-//        return queryFactory.selectFrom(attend)
-//                .where();
+        return queryFactory.select(attend.count()).from(attend)
+                .where(attend.employmentId.id.eq(employmentId).
+                        and(attend.userId.eq(userId)))
+                .fetchFirst() > 0;
     }
 }

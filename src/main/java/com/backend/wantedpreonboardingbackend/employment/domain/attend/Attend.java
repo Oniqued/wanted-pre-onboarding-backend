@@ -24,4 +24,11 @@ public class Attend {
 
     @Column(nullable = false)
     private Long userId;
+
+    public static Attend createAttend(Employment employmentId, Long userId) {
+        return Attend.builder()
+                .employmentId(employmentId)
+                .userId(userId)
+                .build();
+    }
 }
